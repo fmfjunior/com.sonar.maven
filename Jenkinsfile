@@ -1,4 +1,5 @@
 node {
+
    // This is to demo github action	
    //def sonarUrl = 'sonar.host.url=http://localhost:9000'
    //def mvn = tool (name: 'maven3', type: 'maven') + '/bin/mvn'
@@ -12,8 +13,9 @@ node {
    
    stage('Mvn Package'){
 	 // Build using maven
-	   
-	   sh 'mvn package'
+	   //Get Maven Home Path
+	   def mvnHome = tool name: 'maven-3', type: 'maven'
+	   sh "${mvnHome}/bin/mvn package"
    }
    //stage('Sonar Publish'){
 	   //withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarToken')]) {
