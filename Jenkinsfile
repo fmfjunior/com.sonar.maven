@@ -14,7 +14,7 @@ node {
    stage('Mvn Package'){
 	 // Build using maven
 	   //Get Maven Home Path
-	   def mvnHome = tool name: 'maven-3', type: 'maven'
+	   def mvnHome = tool name: 'Maven', type: 'maven'
 	   sh "${mvnHome}/bin/mvn package"
    }
    //stage('Sonar Publish'){
