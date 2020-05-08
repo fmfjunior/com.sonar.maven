@@ -4,10 +4,13 @@ node {
    //def sonarUrl = 'sonar.host.url=http://localhost:9000'
    //def mvn = tool (name: 'maven3', type: 'maven') + '/bin/mvn'
    stage('SCM Checkout'){
+	deleteDir()
+  	checkout scm
     // Clone repo
 	//git branch: 'master', 
 	//credentialsId: 'github', 
-	url: 'https://github.com/fmfjunior/com.sonar.maven'
+	sh 'git clone https://github.com/fmfjunior/com.sonar.maven'
+	//url: 'https://github.com/fmfjunior/com.sonar.maven'
    
    }
    
