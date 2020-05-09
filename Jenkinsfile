@@ -22,15 +22,10 @@ node {
    }
    
    stage('Sonarqube') {
-    environment {
-        scannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-    }
-    steps {
-        withSonarQubeEnv('sonarqube') {
-            sh "${scannerHome}/bin/sonar-scanner"
-            }
-    	}
-    }
+        def = scannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        sh "${scannerHome}/bin/sonar-scanner"
+   }
+
     //stage('Sonar Publish'){
 	//withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarToken')]) {
         //def sonarToken = "sonar.login=${sonarToken}"
