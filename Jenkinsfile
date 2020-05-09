@@ -28,7 +28,8 @@ node {
     steps {
         withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
-        }
+            }
+    	}
     }
     //stage('Sonar Publish'){
 	//withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarToken')]) {
