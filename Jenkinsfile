@@ -3,6 +3,7 @@ node {
    // This is to demo github action	
    //def sonarUrl = 'sonar.host.url=http://localhost:9000'
    //def mvn = tool (name: 'maven3', type: 'maven') + '/bin/mvn'
+   def mvnHome = tool name: 'Maven', type: 'maven'
    stage('SCM Checkout'){
 	deleteDir()
   	checkout scm
@@ -17,7 +18,7 @@ node {
    stage('Mvn Package'){
 	 // Build using maven
 	   //Get Maven Home Path
-	   def mvnHome = tool name: 'Maven', type: 'maven'
+	  
 	   sh "${mvnHome}/bin/mvn package"
    }
    
