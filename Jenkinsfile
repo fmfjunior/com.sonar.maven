@@ -20,9 +20,22 @@ node {
 	   def mvnHome = tool name: 'Maven', type: 'maven'
 	   sh "${mvnHome}/bin/mvn package"
    }
-   //stage('Sonar Publish'){
-	   //withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarToken')]) {
-       // def sonarToken = "sonar.login=${sonarToken}"
+   
+   stage('Sonarqube') {
+    environment {
+        scannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+    }
+    steps {
+        withSonarQubeEnv('sonarqube') {
+            sh "${scannerHome}/bin/sonar-scanner"
+        }
+        timeout(time: 10, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+    }
+    //stage('Sonar Publish'){
+	//withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarToken')]) {
+        //def sonarToken = "sonar.login=${sonarToken}"
         //sh "${mvn} sonar:sonar -D${sonarUrl}  -D${sonarToken}"
 	 //}
       
