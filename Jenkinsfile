@@ -1,8 +1,7 @@
 node {
 
    // This is to demo github action	
-   //def sonarUrl = 'sonar.host.url=http://localhost:9000'
-   //def mvn = tool (name: 'maven3', type: 'maven') + '/bin/mvn'
+   def sonarUrl = 'sonar.host.url=http://localhost:9000'
    def mvnHome = tool name: 'Maven', type: 'maven'
    stage('SCM Checkout'){
 	deleteDir()
@@ -23,11 +22,13 @@ node {
    }
    
    stage('Sonarqube') {
-            sh "${mvnHome}/bin/mvn sonar:sonar"
+	    withCredentials([string(credentialsId: 'SonarToken', variable: 'sonarToken')]) {
+       	    def sonarToken = "sonar.login=${sonarToken}"
+            sh "${mvnHome}/bin/mvn sonar:sonar -D${sonarUrl}  -D${sonarToken}"
    }
 
     //stage('Sonar Publish'){
-	//withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarToken')]) {
+	//withCredentials([string(credentialsId: 'SonarToken', variable: 'sonarToken')]) {
         //def sonarToken = "sonar.login=${sonarToken}"
         //sh "${mvn} sonar:sonar -D${sonarUrl}  -D${sonarToken}"
 	 //}
