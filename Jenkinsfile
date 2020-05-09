@@ -22,8 +22,7 @@ node {
    }
    
    stage('Sonarqube') {
-        def scannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-        sh "${scannerHome}/bin/sonar-scanner"
+            sh "${mvnHome}/bin/mvn sonar:sonar"
    }
 
     //stage('Sonar Publish'){
